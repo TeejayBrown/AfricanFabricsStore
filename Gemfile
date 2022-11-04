@@ -70,3 +70,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+#Project Specific Gems
+gem 'activeadmin'
+gem 'devise'
