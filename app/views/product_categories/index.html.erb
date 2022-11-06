@@ -1,0 +1,17 @@
+<h2 class="title is-2">All Product Categories</h2>
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Products</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @product_categories.each do |category|%>
+      <tr>
+      <td><%= category.name %> <em>(<%= category.products.count %>)</em></td>
+      <td><%= link_to "Show Products", category, class: "button is-success"%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

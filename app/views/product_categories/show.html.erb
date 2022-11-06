@@ -1,0 +1,8 @@
+<div>
+  <h2 class='title is-1'>Category: <%= @product_category.name.titlecase%></h2>
+  <% @product_category.products.each do |product|%>
+      <p class="title">
+          <%= link_to product.name.titlecase, product %>
+      </p>
+  <% end %>
+</div>

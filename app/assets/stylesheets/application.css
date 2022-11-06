@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+
+ .rowws {
+  display: flex;
+  flex-wrap: wrap;
+ }
+
+ .flow {
+    display: flex;
+    flex-wrap: wrap;
+  }
+ .rows {
+
+	/* Activate grid layout */
+	display: grid;
+
+	/* Create 3 columns, each 1 "fractional unit" wide */
+	grid-template-columns: 1fr 1fr 1fr;
+
+	/* Add a 10px gap between columns and rows */
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+
+}
