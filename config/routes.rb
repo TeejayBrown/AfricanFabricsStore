@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'search/index'
   get 'product_categories/index'#, to: 'product_categories#index', as: 'product_categories'
   get 'product_categories/show' #, to: 'product_categories#show', as: 'product_category'
