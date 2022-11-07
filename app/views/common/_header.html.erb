@@ -54,13 +54,13 @@
     </div>
     <div class="level-item has-text-centered">
 
-      <%= form_with(url: products_index_path, method: :get, local: true) do%>
+      <%= form_with(url: search_index_path, method: :get, local: true) do%>
         <div class="field has-addons">
           <p class="control">
-            <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search For Products')%>
+            <%= text_field_tag(:q, nil, class: "input", placeholder: 'Search For Products')%>
           </p>
           <p class="select is-primary control">
-            <%# <%= select_tag :country, options_from_collection_for_select(Country.order(:name), :name, :name), class: "select", prompt: " All Categories " %>
+            <%= select_tag :category, options_from_collection_for_select(ProductCategory.all, :id, :name), class: "select", prompt: " All Categories " %>
           </p>
           <br>
           <p class="ml-3 control">

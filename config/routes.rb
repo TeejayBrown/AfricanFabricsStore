@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/index'
   get 'product_categories/index'#, to: 'product_categories#index', as: 'product_categories'
   get 'product_categories/show' #, to: 'product_categories#show', as: 'product_category'
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -6,6 +7,8 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact', as: 'contact'
 
   get 'about', to: 'pages#about', as: 'about'
+
+  get 'search', to: 'search#index', as: 'search'
 
   get 'products/index'
   get 'products/show'
