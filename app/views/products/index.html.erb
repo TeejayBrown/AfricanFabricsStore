@@ -3,11 +3,11 @@
     <%= render @products %>
   <%# </div>
 </div> %>
-<% if current_user %>
-<h1> Welcome <strong><%= current_user %></strong>to African Fabrics Store</h1>
-<% else %>
+<%# <% if current_user %>
+<%# <h1> Welcome <strong><%= current_user.first_name</strong>to African Fabrics Store</h1> %>
+<%# <% else %>
 <h1> Welcome to African Fabrics Store</h1>
-<% end %>
+<%# <% end %>
 <div class="rowws">
   <%= render @products %>
 </div>
