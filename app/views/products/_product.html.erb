@@ -1,18 +1,12 @@
 <% if @qty != 1 %>
-  <div class="column">
-    <div class="card" style= "width: 300px; height: 650px">
-      <div class="card-image">
-        <% if product.image.present? %>
-          <figure class="image">
-            <%= image_tag product.image.variant(resize_to_limit: [300, 300]).processed  %>
-          </figure>
-        <% end %>
-      </div>
-      <div class="card-content">
-        <p class="title is-4">
-          <%= link_to product.name, product %>
-        </p>
-        <p>Price: <%= number_to_currency product.price %>
+  <div class ="col">
+    <div class="card" style="width: 18rem;">
+      <% if product.image.present? %>
+        <%= image_tag product.image.variant(resize_to_limit: [300, 300]).processed  %>
+      <% end %>
+      <div class="card-body">
+        <h4 class="card-title"><strong><%= link_to product.name, product%></strong></h4>
+        <p class="card-text">Price: <%= number_to_currency product.price %>
           <% if product.new %>
           <strong>New!</strong>
           <% end %>
@@ -20,35 +14,27 @@
             <strong>On Sale! 🔥</strong>
           <% end %>
         </p>
-        <br />
-        <%# <input type="number" style="width: 80px" min="0" max=<%= product.quantity %>
         <p style="display:flex">
           <label>Quantity: </label>
           <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
         </p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
 <% else %>
-  <div class="columns" style= "width: auto; height: auto">
-    <div class="column">
-      <div class="card" style= "width: 300px; height: auto">
-        <div class="card-image">
-          <% if product.image.present? %>
-            <figure class="image">
-              <%= image_tag product.image.variant(resize_to_limit: [300, 300]).processed  %>
-            </figure>
-          <% end %>
-        </div>
-      </div>
+  <div class ="col">
+    <div class="card" style="width: 18rem;">
+      <% if product.image.present? %>
+        <%= image_tag product.image.variant(resize_to_limit: [300, 300]).processed  %>
+      <% end %>
     </div>
-    <div class="column">
-      <p class="title">
-        <%= link_to product.name, product %>
-      </p>
-      <p><strong>Description: </strong> <%= @product.description %></p>
-      <br/>
-      <p><strong>Price: </strong> <%= number_to_currency product.price %>
+  </div>
+  <div class ="col">
+    <div class="card-body">
+      <h2 class="card-title"><%= link_to product.name, product%></h2>
+      <p class="card-text"><strong>Description: </strong> <%= @product.description %></p>
+      <p class="card-text"><strong>Price:</strong> <%= number_to_currency product.price %>
         <% if product.new %>
         <strong>New!</strong>
         <% end %>
@@ -56,11 +42,11 @@
           <strong>On Sale! 🔥</strong>
         <% end %>
       </p>
-      <br />
       <p style="display:flex">
         <label>Quantity: </label>
-        <input style= "margin-left: 5px; width: 70px; height :30px" value="0"  type="number" min="0" max=<%= product.quantity %> />
+        <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
       </p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>
 <% end %>
