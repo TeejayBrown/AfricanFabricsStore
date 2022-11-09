@@ -1,0 +1,11 @@
+<div class="container">
+  <h2 class='title is-1'>Category: <%= @product_category.name.titlecase%></h2>
+  <br/>
+  <div class="rowws">
+    <%= render partial: 'products/product',
+                collection: @product_category.products,
+                locals: {show_details_link:true,
+                          add_link:true}
+      %>
+  </div>
+</div>

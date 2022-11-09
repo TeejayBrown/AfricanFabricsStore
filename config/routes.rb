@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   get 'search', to: 'search#index', as: 'search'
 
+  get 'ankara', to: 'product_categories#ankara', as: 'ankara'
+  get 'adire', to: 'product_categories#adire', as: 'adire'
+  get 'asooke', to: 'product_categories#asooke', as: 'asooke'
+  get 'lace', to: 'product_categories#lace', as: 'lace'
+
   get 'products/index'
   get 'products/show'
 

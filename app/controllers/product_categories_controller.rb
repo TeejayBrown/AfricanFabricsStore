@@ -7,4 +7,20 @@ class ProductCategoriesController < ApplicationController
     @product_category = ProductCategory.find(params[:id])
   end
 
+  def ankara
+    @product_category = ProductCategory.find("1") #.where(name: "Ankara")
+  end
+
+  def adire
+    @product_category = ProductCategory.find("2") #.where(name: "Ankara")
+  end
+
+  def asooke
+    @product_category = ProductCategory.find("3") #.where(name: "Ankara")
+  end
+
+  def lace
+    @product_category = ProductCategory.find("4") #.where(name: "Ankara")
+  end
+
 end
