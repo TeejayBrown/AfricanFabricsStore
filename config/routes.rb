@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'order', to: 'order#show', as: 'order'
+  post 'cart/add'
+  post 'cart/remove'
+
   devise_for :users
   get 'search/index'
   get 'product_categories/index'#, to: 'product_categories#index', as: 'product_categories'
