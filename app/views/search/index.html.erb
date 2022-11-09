@@ -1,5 +1,5 @@
 <h1 class="title is-2">Search Results <h1>
-<p class="mb-5">
+<h4>
   <% cats = ["Ankara", "Adire", "AsoOke", "Lace"]%>
   <% if params[:category] == "" %>
     Your search for "<%= params[:q]%>" found <%= pluralize(@searched_items.count, 'product') %>.
@@ -8,17 +8,18 @@
   <% else %>
     Your search for "<%= params[:q]%>" in "<%= cats[params[:category].to_i - 1]%>" found <%= pluralize(@searched_items.count, 'product') %>.
   <% end %>
-</p>
+</h4>
 
+<br/>
 <%# <ul class="ml-5">
   <% @searched_items.each do |product|%>
     <%# <li><%= link_to product.name, product %></li>
   <%# <% end %>
 <%# </ul> %>
-<div class="rowws">
-<%= render partial: 'products/product',
-             collection: @searched_items,
-             locals: {show_details_link:true,
-                      add_link:true}
-  %>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+  <%= render partial: 'products/product',
+              collection: @searched_items,
+              locals: {show_details_link:true,
+                        add_link:true}
+    %>
 </div>

@@ -1,33 +1,86 @@
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p>
-      <strong>African Fabrics Store</strong></strong> by <a href="https://github.com/TeejayBrown"><strong>TeejayBrown</strong></a>. The source code is licensed
-      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-      is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-    </p>
-  </div>
-  <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="field is-grouped">
-          <p class="control">
-            <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
-              <span class="icon">
-                <i class="fab fa-twitter"></i>
-              </span>
-              <span>
-                Tweet
-              </span>
-            </a>
-          </p>
-          <p class="control">
-            <a class="button is-primary" href="https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip">
-              <span class="icon">
-                <i class="fas fa-download"></i>
-              </span>
-              <span>Download</span>
-            </a>
-          </p>
+<footer>
+<hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <div>
+          <h3><%= link_to "African Fabrics Store", root_path%></h3>
+          <p class="mb-30 footer-desc">African Fabrics Store
+            … showcasing African designs to the global community.
+            </p>
+        </div>
+      </div>
+      <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6">
+        <div class="">
+          <h4>Quick Link</h4>
+          <ul class="list-unstyled sticky-note">
+            <li>
+              <%= link_to "Home", root_path%>
+            </li>
+            <li>
+              <%= link_to "About Us", about_path%>
+            </li>
+            <li>
+              <%= link_to "Contact Us", contact_path%>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6">
+        <div>
+          <h4>Products</h4>
+          <ul class="list-unstyled sticky-note">
+            <li>
+              <%= link_to "New", new_path%>
+            </li>
+            <li>
+              <%= link_to "On Sale 🔥", sale_path%>
+            </li>
+            <li>
+              <%= link_to "Ankara", ankara_path%>
+            </li>
+            <li>
+              <%= link_to "Adire", adire_path%>
+            </li>
+            <li>
+              <%= link_to "Asooke", asooke_path%>
+            </li>
+            <li>
+              <%= link_to "Lace", lace_path%>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6">
+        <div>
+          <h4>Address</h4>
+          <ul class="list-unstyled">
+            <li>
+              <p><i class="bi bi-geo-alt"></i> 16 Princess Street</p>
+            </li>
+            <li>
+              <p><a href="#">contact@taiwoomoleye.com</a>
+              </p>
+            </li>
+            <li>
+              <p>Winnipeg, Manitoba </p>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+    <div class="d-flex justify-content-between">
+
+      <div class="copyright">
+        <p>Developed and maintained by <a href="https://github.com/TeejayBrown" target="_blank">TeejayBrown</a></p>
+      </div>
+      <div>
+        <ul class="d-flex gap-3 list-unstyled">
+          <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+          <li><a href="#"><i class="bi bi-twitter"></i></a></li>
+          <li><a href="#"><i class="bi bi-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </footer>

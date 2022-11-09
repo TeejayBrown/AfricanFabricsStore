@@ -6,14 +6,14 @@
       <% end %>
       <div class="card-body">
         <h4 class="card-title"><strong><%= link_to product.name, product%></strong></h4>
-        <p class="card-text">Price: <%= number_to_currency product.price %>
+        <h6 class="card-text">Price: <%= number_to_currency product.price %>
           <% if product.new %>
           <strong>New!</strong>
           <% end %>
           <% if product.on_sale %>
             <strong>On Sale! 🔥</strong>
           <% end %>
-        </p>
+        </h6>
         <p style="display:flex">
           <label>Quantity: </label>
           <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
