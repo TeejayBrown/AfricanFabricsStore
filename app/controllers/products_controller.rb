@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.all.page params[:page]
   end
 
   def show
@@ -9,15 +9,15 @@ class ProductsController < ApplicationController
   end
 
   def sale
-    @products = Product.where(on_sale: true)
+    @products = Product.where(on_sale: true).page params[:page]
   end
 
   def new
-    @products = Product.where(new: true)
+    @products = Product.where(new: true).page params[:page]
   end
 
   def search
-    @products ||= find_products
+    @products ||= find_products.page params[:page]
   end
 
   private

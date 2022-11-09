@@ -1,3 +1,3 @@
 class Page < ApplicationRecord
-  validates :title, presence: true
+  validates :name, :description, presence: true
 end

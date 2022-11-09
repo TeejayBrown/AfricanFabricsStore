@@ -4,5 +4,5 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   validates :name, :description, :product_category_id, :quantity, :price, presence: true
-
+  paginates_per 3
 end
