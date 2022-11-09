@@ -1,21 +1,22 @@
 <h1 class="title is-2">Search Results <h1>
 <h4>
   <% cats = ["Ankara", "Adire", "AsoOke", "Lace"]%>
-  <% if params[:category] == "" %>
-    Your search for "<%= params[:q]%>" found <%= pluralize(@searched_items.count, 'product') %>.
+  <% if params[:category] == "" && params[:q] == "" %>
+    Your search in "All Categories" found <%= pluralize(@searched_items.count, 'product') %>.
+  <% elsif params[:category] != "" && params[:q] == "" %>
+    Your search in "<%= cats[params[:category].to_i - 1]%>" category found <%= pluralize(@searched_items.count, 'product') %>.
   <% elsif params[:q] == "" %>
-    Your search for products in "<%= cats[params[:category].to_i - 1]%>" found <%= pluralize(@searched_items.count, 'product') %>.
-  <% else %>
+    Your search parameter is empty! Please try again with a valid search parameter.
+  <% elsif params[:category] != "" && params[:q] != "" %>
     Your search for "<%= params[:q]%>" in "<%= cats[params[:category].to_i - 1]%>" found <%= pluralize(@searched_items.count, 'product') %>.
+  <% else %>
+    Your search for "<%= params[:q]%>" found <%= pluralize(@searched_items.count, 'product') %>.
   <% end %>
 </h4>
 
 <br/>
-<%# <ul class="ml-5">
-  <% @searched_items.each do |product|%>
-    <%# <li><%= link_to product.name, product %></li>
-  <%# <% end %>
-<%# </ul> %>
+
+<%# <% if (params[:q] != "" && params[:category] != "") || params[:category] == ""%>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
   <%= render partial: 'products/product',
               collection: @searched_items,
@@ -23,3 +24,4 @@
                         add_link:true}
     %>
 </div>
+<%# <% end %>

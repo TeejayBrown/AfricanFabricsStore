@@ -22,17 +22,19 @@
     <header>
       <%= render partial: 'common/navbar' %>
       <%= render partial: 'common/alerts' %>
+      <br/>
     </header>
 
     <main>
       <div class="container">
         <%= yield %>
       </div>
+      <br/>
     </main>
-    <br />
     <%# <main>
       <%= yield %>
     <%# </main> %>
-    <%= render partial: 'common/footer' %>
+
   </body>
+  <%= render partial: 'common/footer' %>
 </html>
