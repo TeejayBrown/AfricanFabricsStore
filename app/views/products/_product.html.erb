@@ -1,24 +1,32 @@
-<% if @qty != 1 %>
+<% if @display != 1 %>
   <div class ="col">
-    <div class="card" style="width: 18rem;">
-      <% if product.image.present? %>
-        <%= image_tag product.image.variant(resize_to_limit: [300, 300]).processed  %>
-      <% end %>
-      <div class="card-body">
-        <h4 class="card-title"><strong><%= link_to product.name, product%></strong></h4>
-        <h6 class="card-text">Price: <%= number_to_currency product.price %>
-          <% if product.new %>
-          <strong>New!</strong>
+    <div id="<%= dom_id product %>">
+      <div class="card" style="width: 18rem;">
+        <% if product.image.present? %>
+          <%= image_tag product.image.variant(resize_to_limit: [300, 300]).processed  %>
+        <% end %>
+        <div class="card-body">
+          <h4 class="card-title"><strong><%= link_to product.name, product%></strong></h4>
+          <h6 class="card-text">Price: <%= number_to_currency product.price %>
+            <% if product.new %>
+            <strong>New!</strong>
+            <% end %>
+            <% if product.on_sale %>
+              <strong>On Sale! 🔥</strong>
+            <% end %>
+          </h6>
+          <p style="display:flex">
+            <label>Quantity: </label>
+            <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+
+          <% if @cart.include?(product)%>
+            <p><%= button_to 'remove from cart', remove_from_cart_path(product), method: :delete %></p>
+          <% else%>
+            <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
           <% end %>
-          <% if product.on_sale %>
-            <strong>On Sale! 🔥</strong>
-          <% end %>
-        </h6>
-        <p style="display:flex">
-          <label>Quantity: </label>
-          <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
       </div>
     </div>
   </div>
@@ -46,7 +54,11 @@
         <label>Quantity: </label>
         <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
       </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <% if @cart.include?(product)%>
+        <p><%= button_to 'remove from cart', remove_from_cart_path(product), method: :delete %></p>
+      <% else%>
+        <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
+      <% end %>
     </div>
   </div>
 <% end %>
