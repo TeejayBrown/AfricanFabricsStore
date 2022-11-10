@@ -27,6 +27,7 @@
 
     <main>
       <div class="container", style="height: 1000px">
+        <%= render partial: 'common/order' if @cart.present? %>
         <%= yield %>
       </div>
       <br/>

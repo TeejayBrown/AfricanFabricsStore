@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get 'order', to: 'order#show', as: 'order'
-  post 'cart/add'
-  post 'cart/remove'
+  # get 'order', to: 'order#show', as: 'order'
+  # post 'order/add'
+  # post 'order/remove'
+  post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
+  delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
   devise_for :users
   get 'search/index'
