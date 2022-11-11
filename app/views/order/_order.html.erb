@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "order" do %>
+  <%# <div class="d-flex justify-content-end"> %>
+    <% if @order.product_orders.count > 0 %>
+    <h1 class="d-flex justify-content-end">Cart <sup><%= @order.product_orders.count %></sup></h1>
+      <%= render "order/show_product_orders" %>
+      <p>Total: <%= @order.total %> </p>
+    <% else %>
+      <p>Your cart is empty</p>
+    <% end %>
+  <%# </div> %>
+<% end %>

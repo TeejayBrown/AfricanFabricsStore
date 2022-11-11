@@ -1,0 +1,15 @@
+<details>
+  <summary> Shopping Cart</summary>
+  <% if @cart.empty? %>
+    <p>No item in cart</p>
+  <% else %>
+    <ul>
+      <% @cart.each do |product, index| %>
+      <li>Price: <%= number_to_currency product.price %> </li>
+          <%# <li>Quantity: <%= @qty %> <%#</li> %>
+        <li><%= product.name %> <%= button_to ' ➖ remove from cart', remove_from_cart_path(product), method: :delete %></li>
+      <% end %>
+    </ul>
+    <p>Total: 148</p>
+  <% end %>
+</details>

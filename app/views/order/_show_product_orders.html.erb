@@ -1,0 +1,25 @@
+<%= @order.product_orders.each do |product_order| %>
+  <% product = product_order.product %>
+  <div id="<%= "order-#{product.id}" %>">
+    <div style="display:flex;justify-content:space-between; margin: 0em 5em;" >
+      <strong>Name:</strong>
+      <%= product.name%>
+      <strong>Price:</strong>
+      <%= product.price%>
+      <strong>Quantity:</strong>
+      <%= form_with(url: order_add_path) do |f| %>
+        <%= f.hidden_field :id, value: product.id%>
+        <%= f.number_field :quantity, value: product_order.quantity, min: 0, max: product.quantity %>
+        <%= f.submit "Add to cart"%>
+      <% end %>
+
+      <%= form_with(url: order_remove_path) do |f| %>
+        <%= f.hidden_field :id, value: product_order.id%>
+        <%= f.submit "Remove from cart"%>
+      <% end %>
+
+      <strong>Total:</strong>
+      <%= product_order.total %>
+    </div>
+  </div>
+<% end %>
