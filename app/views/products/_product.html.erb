@@ -1,3 +1,4 @@
+<div id="<%= dom_id product %>">
 <% if @display != 1 %>
   <div class ="col">
     <div id="<%= dom_id product %>">
@@ -15,17 +16,25 @@
               <strong>On Sale! 🔥</strong>
             <% end %>
           </h6>
-          <p style="display:flex">
+          <%# <p style="display:flex">
             <label>Quantity: </label>
-            <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+            <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %>
+          <%# </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a> %>
+          <%# <% if @order.include?(product.orders)%>
+            <%= form_with(url: order_add_path) do |f| %>
+              <%= f.hidden_field :id, value: product.id%>
+              <p style="display:flex"> Quantity: <%= f.number_field :quantity, value: 0, min: 1, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %></p>
+              <%= f.submit "Add to cart", class: "btn btn-primary"%>
+            <% end %>
+          <%# <% else %>
+          <br/>
+            <%= form_with(url: order_remove_path) do |f| %>
+              <%= f.hidden_field :id, value: product.id%>
+              <%= f.submit "Remove from cart", class: "btn btn-primary"%>
+            <% end %>
+          <%# <% end %>
 
-          <% if @cart.include?(product)%>
-            <p><%= button_to 'remove from cart', remove_from_cart_path(product), method: :delete %></p>
-          <% else%>
-            <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
-          <% end %>
         </div>
       </div>
     </div>
@@ -62,3 +71,4 @@
     </div>
   </div>
 <% end %>
+</div>
