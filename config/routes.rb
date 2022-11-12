@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
-  devise_for :users
+  devise_for :customers
   get 'search/index'
   get 'product_categories/index'#, to: 'product_categories#index', as: 'product_categories'
   get 'product_categories/show' #, to: 'product_categories#show', as: 'product_category'

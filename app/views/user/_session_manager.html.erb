@@ -1,21 +1,21 @@
-<% if current_user %>
+<% if current_customer %>
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Dropdown
+      Username
     </a>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
       <li><a class="dropdown-item" href="#">Action</a></li>
       <li><a class="dropdown-item" href="#">Another action</a></li>
       <li><hr class="dropdown-divider"></li>
-      <li><%= link_to "Edit Account", edit_user_registration_path, class: 'nav-link'%></li>
-      <li><%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link'%></li>
+      <li><%= link_to "Edit Account", edit_customer_registration_path, class: 'dropdown-item'%></li>
+      <li><%= button_to "Sign Out", destroy_customer_session_path, method: :delete, class: 'dropdown-item'%></li>
     </ul>
   </li>
 <% else %>
   <li class="nav-item">
-    <%= link_to "Sign Up", new_user_registration_path, class: 'nav-link'%>
+    <%= link_to "Sign Up", new_customer_registration_path, class: 'nav-link'%>
   </li>
   <li class="nav-item">
-    <%= link_to "LogIn", new_user_session_path, class: 'nav-link'%>
+    <%= link_to "LogIn", new_customer_session_path, class: 'nav-link'%>
   </li>
 <% end %>
