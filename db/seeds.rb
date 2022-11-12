@@ -6,5 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Product.destroy_all
+#Product.destroy_all
+Order.destroy_all
 AdminUser.create!(email: 'admin@taiwoomoleye.com', password: 'Shulamite101#', password_confirmation: 'Shulamite101#') if Rails.env.development?
