@@ -40,6 +40,7 @@
     </div>
   </div>
 <% else %>
+<div class="row" style= "flex-wrap: wrap;width: 800px; height: auto; margin-left:auto; margin-right:auto">
   <div class ="col">
     <div class="card" style="width: 18rem;">
       <% if product.image.present? %>
@@ -48,27 +49,24 @@
     </div>
   </div>
   <div class ="col">
-    <div class="card-body">
-      <h2 class="card-title"><%= link_to product.name, product%></h2>
-      <p class="card-text"><strong>Description: </strong> <%= @product.description %></p>
-      <p class="card-text"><strong>Price:</strong> <%= number_to_currency product.price %>
-        <% if product.new %>
-        <strong>New!</strong>
+      <div class="card-body">
+        <h2 class="card-title"><%= link_to product.name, product%></h2>
+        <p class="card-text"><strong>Description: </strong> <%= @product.description %></p>
+        <p class="card-text"><strong>Price:</strong> <%= number_to_currency product.price %>
+          <% if product.new %>
+          <strong>New!</strong>
+          <% end %>
+          <% if product.on_sale %>
+            <strong>On Sale! 🔥</strong>
+          <% end %>
+        </p>
+        <%= form_with(url: order_add_path) do |f| %>
+          <%= f.hidden_field :id, value: product.id%>
+          <p style="display:flex"> Quantity: <%= f.number_field :quantity, value: 0, min: 1, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %></p>
+          <%= f.submit "Add to cart", class: "btn btn-primary"%>
         <% end %>
-        <% if product.on_sale %>
-          <strong>On Sale! 🔥</strong>
-        <% end %>
-      </p>
-      <p style="display:flex">
-        <label>Quantity: </label>
-        <input style= "margin-left: 5px; width: 70px; height :30px" value="0" type="number" min="0" max=<%= product.quantity %> />
-      </p>
-      <% if @cart.include?(product)%>
-        <p><%= button_to 'remove from cart', remove_from_cart_path(product), method: :delete %></p>
-      <% else%>
-        <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
-      <% end %>
-    </div>
+      </div>
   </div>
+</div>
 <% end %>
 </div>

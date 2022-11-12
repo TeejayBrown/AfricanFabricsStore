@@ -1,11 +1,13 @@
 class OrderController < ApplicationController
   def show
     @render_cart = false
+    @show_cart = 1
   end
 
   def add
     @product = Product.find_by(id: params[:id])
     quantity = params[:quantity].to_i
+    flash[:notice] = "#{quantity} Item(s) added to cart"
     current_product_order = @order.product_orders.find_by(product_id: @product.id)
     if current_product_order && quantity > 0
       current_product_order.update(quantity:)
@@ -20,7 +22,11 @@ class OrderController < ApplicationController
         render turbo_stream: [turbo_stream.replace('order',
                                                    partial: 'order/order',
                                                    locals: { order: @order }),
-                              turbo_stream.replace(@product)]
+                              turbo_stream.replace('show_order',
+                                partial: 'order/show_orders',
+                                locals: { order: @order }),
+                              turbo_stream.replace('show_notice',
+                                partial: 'common/alerts')]
       end
     end
   end
@@ -32,7 +38,9 @@ class OrderController < ApplicationController
         render turbo_stream: [turbo_stream.replace('order',
                                                    partial: 'order/order',
                                                    locals: { order: @order }),
-                              turbo_stream.replace(@product)]
+                              turbo_stream.replace('show_order',
+                                                    partial: 'order/show_orders',
+                                                    locals: { order: @order })]
       end
     end
   end

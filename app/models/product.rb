@@ -7,4 +7,8 @@ class Product < ApplicationRecord
 
   validates :name, :description, :product_category_id, :quantity, :price, presence: true
   paginates_per 3
+
+  def image_as_thumbnail
+    image.variant(resize_to_limit: [100, 100]).processed
+  end
 end

@@ -1,0 +1,87 @@
+<%= turbo_frame_tag "show_order" do %>
+<h1>Your Cart</h1>
+<% @order.product_orders.each do |productOrder| %>
+    <% product = productOrder.product %>
+  <p><%= product.name %> * <%= productOrder.quantity %> = $<%= product.price * productOrder.quantity %></p>
+<% end %>
+<p>Your total is $<%= @order.total %> </p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Product Image</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">Quantity * Unit Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% productCount = 0  %>
+    <% @order.product_orders.each do |productOrder| %>
+      <% product = productOrder.product %>
+      <div id="<%= "order-#{product.id}" %>">
+        <tr>
+          <th scope="row"><%= productCount = productCount+1 %></th>
+          <td><%= product.name %></td>
+          <td><%= link_to image_tag(product.image_as_thumbnail), product %></td>
+          <td>
+            <div class="d-grid gap-2 d-md-flex">
+              <%= form_with(url: order_add_path) do |f| %>
+                <%= f.hidden_field :id, value: product.id%>
+                <%= f.number_field :quantity, value: productOrder.quantity, min: 0, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %>
+                <%= f.submit "Update"%>
+              <% end %>
+              <%= form_with(url: order_remove_path) do |f| %>
+                <%= f.hidden_field :id, value: productOrder.id%>
+                <%= f.submit "Remove"%>
+              <% end %>
+            </div>
+          </td>
+          <td><%= number_to_currency product.price %> </td>
+          <td><%= number_to_currency product.price * productOrder.quantity %> </td>
+          <td></td>
+        </tr>
+      </div>
+    <% end %>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><strong>Subtotal</strong></td>
+        <td><%= number_to_currency  @order.total %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><strong>Taxes</strong></td>
+        <td><%= number_to_currency  @order.total %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td><%= number_to_currency @order.total %></td>
+      </tr>
+  </tbody>
+</table>
+<% end %>

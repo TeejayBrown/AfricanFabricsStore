@@ -21,7 +21,7 @@
   <body>
     <header>
       <%= render partial: 'common/navbar' %>
-      <%= render partial: 'common/alerts' %>
+      <%= render partial: 'common/alerts' if @render_cart%>
       <br/>
     </header>
 
