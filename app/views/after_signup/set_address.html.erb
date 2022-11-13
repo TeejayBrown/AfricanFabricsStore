@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Set Your Address</h1>
+  <%= form_for @address, method: :put, url: wizard_path do |f| %>
+    <% if f.object.errors.any? %>
+      <div class="error_messages">
+        <% f.object.errors.full_messages.each do |error| %>
+          <p style="color: red"><%= error %></p>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="form-control">
+      <legend>Your Address</legend>
+      <div class="mt-2">
+        <%= f.text_field :street, class: "form-control", placeholder: "Street...", required: true %>
+      </div>
+      <div class="input-group mt-2">
+        <%= f.text_field :city, class: "form-control", placeholder: "City", required: true %>
+        <%= f.text_field :postal_code, class: "form-control", placeholder: "Postal Code", required: true %>
+      </div>
+      <div class="input-group mt-2">
+        <div class="d-flex">
+          <%= f.label :province_id, "Province" %>
+          <br/>
+          <%= f.select :province_id, options_from_collection_for_select(Province.all, :id, :name), class: "form-control", prompt: " Select Province ", required: true %>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2 d-flex justify-content-end mt-2 btn-group">
+          <%= render 'links' %>
+          <%= f.submit 'Finish', class:"btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <style>
+    div.field_with_errors {
+      display: inline;
+    }
+  </style>
+</div>

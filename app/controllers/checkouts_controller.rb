@@ -2,6 +2,7 @@ class CheckoutsController < ApplicationController
   before_action :authenticate_customer!
 
   def show
+    #@render_cart = false
     # current_customer.set_payment_processor :stripe
     # current_customer.payment_processor.customer
 
