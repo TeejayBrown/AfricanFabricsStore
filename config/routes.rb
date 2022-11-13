@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   # get 'order/show'
+  get 'order/checkout', to: 'checkouts#show'
+  get 'checkout/success', to: 'checkouts#success'
+
   get 'order', to: 'order#show', as: 'order'
   post 'order/add'
   post 'order/remove'
@@ -7,7 +10,10 @@ Rails.application.routes.draw do
   post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
-  devise_for :customers
+  devise_for :customers, controllers: {
+    sessions: 'customers/sessions',
+    registrations: 'customers/registrations'
+  }
   get 'search/index'
   get 'product_categories/index'#, to: 'product_categories#index', as: 'product_categories'
   get 'product_categories/show' #, to: 'product_categories#show', as: 'product_category'
@@ -35,6 +41,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :pages, only: [:about, :contact]
   resources :product_categories, only: [:index, :show]
+  #resources :checkout, only: [:create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

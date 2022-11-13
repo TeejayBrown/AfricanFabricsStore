@@ -84,3 +84,6 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'stripe'
+gem "pay", "~> 5.0"
+
+gem "wicked", "~> 2.0"
