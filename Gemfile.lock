@@ -182,6 +182,8 @@ GEM
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pay (5.0.4)
+      rails (>= 6.0.0)
     popper_js (2.11.6)
     public_suffix (5.0.0)
     puma (5.6.5)
@@ -284,6 +286,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked (2.0.0)
+      railties (>= 3.0.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.6)
@@ -303,6 +307,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kaminari
+  pay (~> 5.0)
   puma (~> 5.0)
   rails (~> 7.0.4)
   sass-rails
@@ -316,6 +321,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
+  wicked (~> 2.0)
 
 RUBY VERSION
    ruby 3.1.2p20
