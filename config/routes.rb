@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :pages, only: [:about, :contact]
   resources :product_categories, only: [:index, :show]
+  resources :after_signup
   #resources :checkout, only: [:create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
