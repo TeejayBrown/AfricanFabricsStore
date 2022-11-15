@@ -1,10 +1,14 @@
 class OrderController < ApplicationController
+  before_action :initialize_cart
+
   def show
     @render_cart = false
     @show_cart = 1
   end
 
   def add
+    id = params[:id].to_i
+    session[:order_id] << id
     @product = Product.find_by(id: params[:id])
     quantity = params[:quantity].to_i
     flash[:notice] = "#{quantity} Item(s) added to cart"
@@ -42,6 +46,15 @@ class OrderController < ApplicationController
                                                     partial: 'order/show_orders',
                                                     locals: { order: @order })]
       end
+    end
+  end
+
+  def initialize_cart
+    @order ||= Order.find_by(id: session[:order_id])
+
+    if @order.nil?
+      @order = Order.create
+      session[:order_id] = @order.id
     end
   end
 

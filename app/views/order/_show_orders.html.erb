@@ -3,8 +3,60 @@
 <% @order.product_orders.each do |productOrder| %>
     <% product = productOrder.product %>
   <p><%= product.name %> * <%= productOrder.quantity %> = $<%= product.price * productOrder.quantity %></p>
+  <% if current_customer %>
+    <% province = Province.find("#{current_customer.address.province_id}") %>
+    <% @subtotal = product.price * productOrder.quantity %>
+    <% @gst = @subtotal * province.gst_rate %>
+    <% @pst = @subtotal * province.pst_rate %>
+    <% @hst = @subtotal * province.hst_rate %>
+    <% @taxes = (@gst + @pst + @hst)/100 %>
+    <% @total = @subtotal + @taxes%>
+    <% @order.update(pst_rate: province.pst_rate, gst_rate: province.gst_rate,
+                      order_date: Time.now.strftime("%d/%m/%Y %H:%M"),
+                      hst_rate: province.hst_rate, sub_total: @subtotal, total: @total) %>
+    <strong>PST Rate: </strong><%= province.pst_rate %>
+    <strong>GST Rate: </strong><%= province.gst_rate %>
+    <strong>Order Date: </strong><%= Time.now.strftime("%d/%m/%Y %H:%M") %>
+    <strong>SubTotal: </strong><%= @subtotal %>
+    <strong>Taxes: </strong><%= @taxes %>
+    <strong>Total: </strong><%= @total %>
+  <% end %>
+  <p>Order Date: <%= @order.order_date = Time.now %></p>
+  <p>Order ID: <%= @order.id %></p>
 <% end %>
-<p>Your total is $<%= @order.total %> </p>
+<%# <p>Your total is $<%= @order.subtotal %> <%#</p> %>
+
+<% if current_customer %>
+  <% province = Province.find("#{current_customer.address.province_id}") %>
+  <% @subtotal = @order.subtotal %>
+  <% @gst = @subtotal * province.gst_rate %>
+  <% @pst = @subtotal * province.pst_rate %>
+  <% @hst = @subtotal * province.hst_rate %>
+  <% @taxes = (@gst + @pst + @hst)/100 %>
+  <% @total = @subtotal + @taxes%>
+  <br>
+  <strong>SubTotal: </strong><%= @subtotal %>
+  <strong>Taxes: </strong><%= @taxes %>
+  <strong>Total: </strong><%= @total %>
+  <br>
+<% end %>
+
+<% if current_customer %>
+  <% province = Province.find("#{current_customer.address.province_id}") %>
+  <div class="container card mt-4">
+    <h2>Customer Info</h2>
+    <h3>Name: <%= current_customer.full_name %></h3>
+    <ul>
+      <li>Street: <%= current_customer.address.street.titleize %></li>
+      <li>City: <%= current_customer.address.city.titleize %></li>
+      <li>Postal Code: <%= current_customer.address.postal_code.titleize %></li>
+      <li>Province: <%= province.name %></li>
+      <li>GST: <%= province.gst_rate %>%</li>
+      <li>PST: <%= province.pst_rate %>%</li>
+      <li>HST: <%= province.hst_rate %>%</li>
+    </ul>
+  </div>
+<% end %>
 
 <table class="table table-striped">
   <thead>
@@ -62,7 +114,7 @@
         <td></td>
         <td></td>
         <td><strong>Subtotal</strong></td>
-        <td><%= number_to_currency  @order.total %></td>
+        <td><%= number_to_currency  @subtotal %></td>
       </tr>
       <tr>
         <th></th>
@@ -71,7 +123,7 @@
         <td></td>
         <td></td>
         <td><strong>Taxes</strong></td>
-        <td><%= number_to_currency  @order.total %></td>
+        <td><%= number_to_currency  @taxes %></td>
       </tr>
       <tr>
         <th></th>
@@ -80,12 +132,8 @@
         <td></td>
         <td></td>
         <td><strong>Total</strong></td>
-        <td><%= number_to_currency @order.total %></td>
+        <td><%= number_to_currency @total %></td>
       </tr>
   </tbody>
 </table>
 <% end %>
-
-<div class="d-flex justify-content-end">
-<%= link_to 'Checkout', order_checkout_path, class: "btn btn-success"%>
-</div>

@@ -2,11 +2,11 @@ class ProductOrder < ApplicationRecord
   belongs_to :product
   belongs_to :order
 
-  def sub_total
+  def subtotal
     product.price * quantity
   end
 
-  def total
-    product.price * quantity
-  end
+  # def total
+  #   product.price * quantity
+  # end
 end
