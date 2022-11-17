@@ -18,14 +18,4 @@ class ApplicationController < ActionController::Base
 
     end
   end
-
-  # def initialize_cart
-  #   # will initialize the visit count to zero for new users\
-  #   session[:order_id] ||= [] # empty array of product IDs
-  #   @order = Order.find(session[:order_id])
-  # end
-  # def cart
-  #   # pass an array of product ids and get back collection of products
-  #   Order.find(session[:order_id])
-  # end
 end
