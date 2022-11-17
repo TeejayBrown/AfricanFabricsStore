@@ -6,6 +6,7 @@ class ProductOrder < ApplicationRecord
     product.price * quantity
   end
 
+<<<<<<< HEAD
   def to_builder
     Jbuilder.new do |productOrder|
       productOrder.price_data product.to_builders
@@ -69,4 +70,9 @@ class ProductOrder < ApplicationRecord
 
 
 
+=======
+  # def total
+  #   product.price * quantity
+  # end
+>>>>>>> 15b164d1c5affb72b207141235124f67dbd248ac
 end

@@ -22,9 +22,13 @@
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name %>
   </div>
-
   <br/>
 
+<<<<<<< HEAD
+  <br/>
+
+=======
+>>>>>>> 15b164d1c5affb72b207141235124f67dbd248ac
   <%= fields_for :address, resource.address do |c| %>
     <%= c.hidden_field :id %>
     <div class="container card">
@@ -71,7 +75,7 @@
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
-
+  <br />
   <div class="actions">
     <%= f.submit "Update", class: "btn btn-success" %>
   </div>
