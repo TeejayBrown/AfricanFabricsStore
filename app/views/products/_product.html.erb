@@ -34,7 +34,15 @@
               <%= f.submit "Remove from cart", class: "btn btn-primary"%>
             <% end %>
           <%# <% end %>
-
+          <br/>
+          <%= button_to "Buy Now", checkout_create_path, params: {id: product.id}, data: { turbo: false }, class: "btn btn-primary"%>
+          <% productOrder = ProductOrder.find_by(product_id: product.id) %>
+          <ul>
+          <% @order.product_orders.each do |productOrder| %>
+            <% product = productOrder.product %>
+            <li><%= productOrder.quantity %></li>
+          <% end %>
+          </ul>
         </div>
       </div>
     </div>

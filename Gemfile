@@ -28,8 +28,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
-
+gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -84,6 +83,4 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'stripe'
-gem "pay", "~> 5.0"
-
 gem "wicked", "~> 2.0"

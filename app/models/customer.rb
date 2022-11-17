@@ -46,16 +46,16 @@ class Customer < ApplicationRecord
     form_steps.index(step.to_s) <= form_steps.index(form_step.to_s)
   end
 
-  def stripe_attributes(pay_customer)
-    {
-      address: {
-        city: pay_customer.owner.city,
-        country: pay_customer.owner.country
-      },
-      metada: {
-        pay_customer_id: pay_customer.id,
-        customer_id: id
-      }
-    }
-  end
+  # def stripe_attributes(pay_customer)
+  #   {
+  #     address: {
+  #       city: pay_customer.owner.city,
+  #       country: pay_customer.owner.country
+  #     },
+  #     metada: {
+  #       pay_customer_id: pay_customer.id,
+  #       customer_id: id
+  #     }
+  #   }
+  # end
 end

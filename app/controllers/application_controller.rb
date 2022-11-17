@@ -7,11 +7,14 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_cart
+    session[:order_id] ||= []
+    #@cart = Order.where(id: session[:cart])
     @order ||= Order.find_by(id: session[:order_id])
 
     if @order.nil?
       @order = Order.create
-      session[:order_id] = @order.id
+      #session[:order_id] = @order.id
+
     end
   end
 end

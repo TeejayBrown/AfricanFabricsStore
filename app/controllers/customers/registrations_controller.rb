@@ -47,7 +47,14 @@ class Customers::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :first_name, :last_name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email,
+                                                              :username,
+                                                              :first_name,
+                                                              :last_name,
+                                                              :password,
+                                                              :password_confirmation,
+                                                              :current_password,
+                                                              { address: %i[street city postal_code province_id] }])
   end
 
   # The path used after sign up.
@@ -60,4 +67,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  def address_params
+    params.require(:address).permit(:id, :street, :city, :postal_code, :province_id)
+  end
 end

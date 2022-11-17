@@ -2,10 +2,21 @@ class OrderController < ApplicationController
   def show
     @render_cart = false
     @show_cart = 1
+
+    # @order.product_orders.each do |entry|
+    #   @orderlist << {
+    #     :name => entry.product.name,
+    #     :description => entry.product.description,
+    #     :price => entry.product.price,
+    #     :quantity => entry.quantity
+    #   }
+    # end
   end
 
   def add
     @product = Product.find_by(id: params[:id])
+    id = params[:id].to_i
+    session[:order_id] << id #unless session[:order_id].include?(id)
     quantity = params[:quantity].to_i
     flash[:notice] = "#{quantity} Item(s) added to cart"
     current_product_order = @order.product_orders.find_by(product_id: @product.id)

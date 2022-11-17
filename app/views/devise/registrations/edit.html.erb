@@ -23,6 +23,32 @@
     <%= f.text_field :last_name %>
   </div>
 
+  <br/>
+
+  <%= fields_for :address, resource.address do |c| %>
+    <%= c.hidden_field :id %>
+    <div class="container card">
+      <legend>Address</legend>
+      <div class="field">
+        <%= c.label :street %><br />
+        <%= c.text_field :street %>
+      </div>
+      <div class="field">
+        <%= c.label :city %><br />
+        <%= c.text_field :city %>
+      </div>
+      <div class="field">
+        <%= c.label :postal_code %><br />
+        <%= c.text_field :postal_code %>
+      </div>
+      <div class="field">
+        <%= c.label :province %><br />
+        <%= c.select :province_id, options_from_collection_for_select(Province.all, :id, :name), class: "form-control", prompt: " Select Province ", required: true %>
+      </div>
+    </div>
+  <% end %>
+
+  <br />
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
@@ -47,7 +73,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", class: "btn btn-success" %>
   </div>
 <% end %>
 

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # get 'order/show'
-  get 'order/checkout', to: 'checkouts#show'
-  get 'checkout/success', to: 'checkouts#success'
+  get 'order/checkout', to: 'checkout#show'
+  get 'order/success', to: 'checkout#success'
+  post 'checkout/create', to: 'checkout#create'
 
   get 'order', to: 'order#show', as: 'order'
   post 'order/add'
