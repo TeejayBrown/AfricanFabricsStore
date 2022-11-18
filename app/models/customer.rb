@@ -7,6 +7,10 @@ class Customer < ApplicationRecord
   has_one :address, dependent: :destroy, inverse_of: :customer, autosave: true
 #pay_customer stripe_attributes: :stripe_attributes
 
+  after_create do
+    customer = Stripe::Customer.create(email: email)
+    update(stripe_customer_id: customer.id)
+  end
 
   validates :email,
     presence: true,

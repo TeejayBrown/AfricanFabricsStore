@@ -57,11 +57,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
                                                               :password_confirmation,
                                                               :current_password,
                                                               { address: %i[street city postal_code province_id] }])
-<<<<<<< HEAD
   end
-=======
-end
->>>>>>> 15b164d1c5affb72b207141235124f67dbd248ac
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
