@@ -12,17 +12,4 @@ class Product < ApplicationRecord
     image.variant(resize_to_limit: [100, 100]).processed
   end
 
-  def to_builder
-    Jbuilder.new do |product|
-      product.name name
-      product.description description
-    end
-  end
-
-  def to_builders
-    Jbuilder.new do |product|
-      product.currency 'cad'
-      product.unit_amount price.to_i * 100
-    end
-  end
 end

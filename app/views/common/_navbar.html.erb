@@ -15,8 +15,19 @@
         <li class="nav-item">
           <%= link_to "On Sale 🔥", sale_path, class: 'nav-link'%>
         </li>
-        <li class="nav-item">
+        <%# <li class="nav-item">
           <%= link_to "Categories", product_categories_path, class: 'nav-link'%>
+        <%# </li> %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><%= link_to "Ankara", ankara_path, class: 'dropdown-item'%></li>
+            <li><%= link_to "Adire", adire_path, class: 'dropdown-item'%></li>
+            <li><%= link_to "AsoOke", asooke_path, class: 'dropdown-item'%></li>
+            <li><%= link_to "Lace", lace_path, class: 'dropdown-item'%></li>
+          </ul>
         </li>
         <li class="nav-item">
           <%= link_to "About", about_path, class: 'nav-link'%>

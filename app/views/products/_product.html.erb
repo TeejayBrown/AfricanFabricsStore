@@ -16,20 +16,24 @@
               <strong>On Sale! 🔥</strong>
             <% end %>
           </h6>
-            <%= form_with(url: order_add_path) do |f| %>
-              <%= f.hidden_field :id, value: product.id%>
-              <p style="display:flex"> Quantity: <%= f.number_field :quantity, value: 0, min: 1, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %></p>
-              <%= f.submit "Add to cart", class: "btn btn-primary"%>
-            <% end %>
-          <%# <% else %>
-          <br/>
-            <%= form_with(url: order_remove_path) do |f| %>
-              <%= f.hidden_field :id, value: product.id%>
-              <%= f.submit "Remove from cart", class: "btn btn-primary"%>
-            <% end %>
-          <%# <% end %>
-          <br/>
-          <%= button_to "Buy Now", checkout_pay_path, params: {id: product.id}, data: { turbo: false }, class: "btn btn-primary"%>
+          <div class= 'row'>
+            <div class='col'>
+              <%= form_with(url: order_add_path) do |f| %>
+                <%= f.hidden_field :id, value: product.id%>
+                <p style="display:flex"> Quantity: <%= f.number_field :quantity, value: 0, min: 1, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %></p>
+                <%= f.submit "Add to cart", class: "btn btn-primary"%>
+              <% end %>
+            </div>
+            <div class='col', style="margin-top:-3px">
+              <br/>
+              <br/>
+                <%# <%= form_with(url: order_remove_path) do |f| %>
+                  <%# <%= f.hidden_field :id, value: product.id%>
+                  <%# <%= f.submit "Remove from cart", class: "btn btn-primary"%>
+                <%# <% end %>
+              <%= button_to "Buy Now", checkout_pay_path, params: {id: product.id}, data: { turbo: false }, class: "btn btn-primary"%>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -55,13 +59,20 @@
             <strong>On Sale! 🔥</strong>
           <% end %>
         </p>
-        <%= form_with(url: order_add_path) do |f| %>
-          <%= f.hidden_field :id, value: product.id%>
-          <p style="display:flex"> Quantity: <%= f.number_field :quantity, value: 0, min: 1, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %></p>
-          <%= f.submit "Add to cart", class: "btn btn-primary"%>
-        <% end %>
-        <br />
-        <%= button_to "Buy Now", checkout_pay_path, params: {id: product.id}, data: { turbo: false }, class: "btn btn-primary"%>
+        <div class= 'row'>
+          <div class='col'>
+            <%= form_with(url: order_add_path) do |f| %>
+              <%= f.hidden_field :id, value: product.id%>
+              <p style="display:flex"> Quantity: <%= f.number_field :quantity, value: 0, min: 1, max: product.quantity, style: "margin-left: 5px; width: 70px; height :30px" %></p>
+              <%= f.submit "Add to cart", class: "btn btn-primary"%>
+            <% end %>
+          </div>
+          <div class='col', style="margin-top:-3px">
+              <br/>
+              <br/>
+            <%= button_to "Buy Now", checkout_pay_path, params: {id: product.id}, data: { turbo: false }, class: "btn btn-primary"%>
+          </div>
+        </div>
       </div>
   </div>
 </div>
