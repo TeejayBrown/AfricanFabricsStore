@@ -1,11 +1,5 @@
 <%= turbo_frame_tag "show_order" do %>
 <h1>Your Cart</h1>
-<%= @order %>
-<br />
-<% @keywords = @order.product_orders.collect{|i| i.to_builder.attributes! } %>
-
-<%= @keywords %>
-
 
 <% @order.product_orders.each do |productOrder| %>
 
@@ -25,6 +19,7 @@
                       hst_rate: province.hst_rate, sub_total: @subtotal, total: @total) %>
     <strong>PST Rate: </strong><%= province.pst_rate %>
     <strong>GST Rate: </strong><%= province.gst_rate %>
+    <strong>HST Rate: </strong><%= province.hst_rate %>
     <strong>Order Date: </strong><%= Time.now.strftime("%d/%m/%Y %H:%M") %>
     <strong>SubTotal: </strong><%= @subtotal %>
     <strong>Taxes: </strong><%= @taxes %>
@@ -32,7 +27,6 @@
   <% end %>
   <p>Order Date: <%= @order.order_date = Time.now %></p>
   <p>Order ID: <%= @order.id %></p>
-<<<<<<< HEAD
 <% end %>
 <%# <p>Your total is $<%= @order.subtotal %> <%#</p> %>
 <% if current_customer %>
@@ -66,42 +60,6 @@
   </div>
 <% end %>
 <p>Your total is $<%= @total %> </p>
-=======
-<% end %>
-<%# <p>Your total is $<%= @order.subtotal %> <%#</p> %>
-
-<% if current_customer %>
-  <% province = Province.find("#{current_customer.address.province_id}") %>
-  <% @subtotal = @order.subtotal %>
-  <% @gst = @subtotal * province.gst_rate %>
-  <% @pst = @subtotal * province.pst_rate %>
-  <% @hst = @subtotal * province.hst_rate %>
-  <% @taxes = (@gst + @pst + @hst)/100 %>
-  <% @total = @subtotal + @taxes%>
-  <br>
-  <strong>SubTotal: </strong><%= @subtotal %>
-  <strong>Taxes: </strong><%= @taxes %>
-  <strong>Total: </strong><%= @total %>
-  <br>
-<% end %>
-
-<% if current_customer %>
-  <% province = Province.find("#{current_customer.address.province_id}") %>
-  <div class="container card mt-4">
-    <h2>Customer Info</h2>
-    <h3>Name: <%= current_customer.full_name %></h3>
-    <ul>
-      <li>Street: <%= current_customer.address.street.titleize %></li>
-      <li>City: <%= current_customer.address.city.titleize %></li>
-      <li>Postal Code: <%= current_customer.address.postal_code.titleize %></li>
-      <li>Province: <%= province.name %></li>
-      <li>GST: <%= province.gst_rate %>%</li>
-      <li>PST: <%= province.pst_rate %>%</li>
-      <li>HST: <%= province.hst_rate %>%</li>
-    </ul>
-  </div>
-<% end %>
->>>>>>> 15b164d1c5affb72b207141235124f67dbd248ac
 
 <table class="table table-striped">
   <thead>

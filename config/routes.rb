@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'order/checkout', to: 'checkout#show'
   get 'order/success', to: 'checkout#success'
   post 'checkout/create', to: 'checkout#create'
+  post 'checkout/pay', to: 'checkout#pay'
 
   get 'order', to: 'order#show', as: 'order'
   post 'order/add'
