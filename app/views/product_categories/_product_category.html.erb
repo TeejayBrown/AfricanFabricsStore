@@ -1,11 +1,10 @@
-<div class="container">
+
   <h2 class='title is-1'>Category: <%= @product_category.name.titlecase%></h2>
   <br/>
-  <div class="rowws">
+ <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <%= render partial: 'products/product',
                 collection: @product_category.products,
                 locals: {show_details_link:true,
                           add_link:true}
       %>
   </div>
-</div>
