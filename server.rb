@@ -16,7 +16,7 @@ require 'sinatra'
 require 'stripe'
 
 # This is your Stripe CLI webhook secret for testing your endpoint locally.
-endpoint_secret = 'whsec_2ed15ed501d5251ef832c0965fcec40977fcdbe59c5c5480fc21a702c8cc2f64'
+endpoint_secret = Rails.application.credentials[:stripe][:endopoint_secret]
 
 set :port, 4242
 
