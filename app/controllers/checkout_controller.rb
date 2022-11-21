@@ -5,10 +5,13 @@ class CheckoutController < ApplicationController
     product = Product.find(params[:id])
     productOrder = ProductOrder.find_by(product_id: product.id)
     load_taxes(product)
+    shippingRate
 
     @session = Stripe::Checkout::Session.create({
       customer: current_customer.stripe_customer_id,
       payment_method_types: ['card'],
+      shipping_address_collection: {allowed_countries: ['US', 'CA']},
+      shipping_options: [{shipping_rate: @shipping_rate}],
       success_url: order_success_url + '?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: root_url,
       line_items: [
@@ -31,6 +34,7 @@ class CheckoutController < ApplicationController
 
   def create
     lineItems = []
+    shippingRate
     @order.product_orders.each do |productOrder|
       product = productOrder.product
       load_taxes(product)
@@ -52,6 +56,8 @@ class CheckoutController < ApplicationController
     @session = Stripe::Checkout::Session.create({
       customer: current_customer.stripe_customer_id,
       payment_method_types: ['card'],
+      shipping_address_collection: {allowed_countries: ['US', 'CA']},
+      shipping_options: [{shipping_rate: @shipping_rate}],
       success_url: order_success_url + '?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: root_url,
       line_items: lineItems,
@@ -68,6 +74,8 @@ class CheckoutController < ApplicationController
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    @customer = Stripe::Customer.retrieve(@session.customer)
+    @shipping = Stripe::Customer.retrieve(@session.customer)
   end
 
   private
@@ -123,5 +131,28 @@ class CheckoutController < ApplicationController
 
       #@all_taxes = [stripe_customer_pst_tax_id, stripe_customer_gst_tax_id, stripe_customer_hst_tax_id]
       @all_taxes = taxRates
+    end
+
+    def shippingRate
+      @shipping_rate = Stripe::ShippingRate.create(
+        {
+          display_name: 'Ground shipping',
+          type: 'fixed_amount',
+          fixed_amount: {
+            amount: 500,
+            currency: 'cad',
+          },
+          delivery_estimate: {
+            minimum: {
+              unit: 'business_day',
+              value: 5,
+            },
+            maximum: {
+              unit: 'business_day',
+              value: 7,
+            },
+          }
+        }
+      )
     end
 end

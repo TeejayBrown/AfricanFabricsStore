@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
 
     if @order.nil?
       @order = Order.create
-      #session[:order_id] = @order.id
+      #@order = Order.new #Order.create
+      session[:order_id] = @order.id
 
     end
   end

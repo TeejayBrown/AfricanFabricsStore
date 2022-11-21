@@ -5,16 +5,19 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :address, dependent: :destroy, inverse_of: :customer, autosave: true
-#pay_customer stripe_attributes: :stripe_attributes
 
-  after_create do
-    customer = Stripe::Customer.create(email: email)
-    update(stripe_customer_id: customer.id)
-  end
+  #has_many :orders   #newly added
+
+#pay_customer stripe_attributes: :stripe_attributes
 
   validates :email,
     presence: true,
     uniqueness: { case_sensitive: false }
+
+  after_create do
+    customer = Stripe::Customer.create(email: email, name: first_name)
+    update(stripe_customer_id: customer.id)
+  end
 
   # Class level accessor http://apidock.com/rails/Class/cattr_accessor
   cattr_accessor :form_steps do
