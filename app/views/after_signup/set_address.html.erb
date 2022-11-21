@@ -8,31 +8,32 @@
         <% end %>
       </div>
     <% end %>
-    <div class="form-control">
+    <div class="row g-3">
       <legend>Your Address</legend>
-      <div class="mt-2">
+      <div class="col-12">
+        <%= f.label "Street", class: "form-label" %>
         <%= f.text_field :street, class: "form-control", placeholder: "Street...", required: true %>
       </div>
-      <div class="input-group mt-2">
+      <div class="col-md-6">
+        <%= f.label "City", class: "form-label" %>
         <%= f.text_field :city, class: "form-control", placeholder: "City", required: true %>
+      </div>
+      <div class="col-md-4", style="margin-top:55px">
+        <%= f.label "Province", class: "form-label" %>
+        <%= f.select :province_id, options_from_collection_for_select(Province.all, :id, :name), class: "form-control", prompt: " Select Province ", required: true %>
+      </div>
+      <div class="col-md-2">
+        <%= f.label "Postal Code", class: "form-label" %>
         <%= f.text_field :postal_code, class: "form-control", placeholder: "Postal Code", required: true %>
       </div>
-      <div class="input-group mt-2">
-        <div class="d-flex">
-          <%= f.label "Province   " %>
-          <br/>
-          <%= f.select :province_id, options_from_collection_for_select(Province.all, :id, :name), class: "form-control", prompt: " Select Province ", required: true %>
-        </div>
-
+      <div class="d-flex justify-content-start">
+        <%= render 'links' %>
       </div>
-      <div class="row">
-        <div class="col-10"></div>
-        <div class="col-2 d-flex justify-content-end mt-2 btn-group">
-          <%= render 'links' %>
-          <%= f.submit 'Finish', class:"btn btn-primary" %>
-        </div>
+      <div class="d-flex justify-content-end", style="margin-top:-35px">
+        <%= f.submit 'Finish', class:"btn btn-primary" %>
       </div>
     </div>
+
   <% end %>
   <style>
     div.field_with_errors {
