@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
 
   has_one :address, dependent: :destroy, inverse_of: :customer, autosave: true
 
-  #has_many :orders   #newly added
+  has_many :customer_orders   #newly added
 
 #pay_customer stripe_attributes: :stripe_attributes
 

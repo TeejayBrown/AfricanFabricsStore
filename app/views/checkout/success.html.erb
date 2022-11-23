@@ -1,13 +1,21 @@
 <h1>Success</h1>
+<br />
+<%# <p>We have received your payment of <%= number_to_currency @payment_intent.amount_received / 100.0 .</p> %>
+<h3>The status of your payment is <%= @payment_intent.status %>.</h3>
+<br/>
+<h4>Thanks for your order, <%= @payment_intent.shipping.name %>.
+  Your order will be shipped to <%= @payment_intent.shipping.address.line1 %>,
+  <%= @payment_intent.shipping.address.city %>, <%= @payment_intent.shipping.address.state %>,
+   <%= @payment_intent.shipping.address.postal_code %>, <%= @payment_intent.shipping.address.country %> within the
+   next 5 business days.
+</h4>
 
-<p>We have received your payment of <%= number_to_currency @payment_intent.amount_received / 100.0 %>.</p>
-<p>The status of your payment is <%= @payment_intent.status %>.</p>
+<% @line_items.data.each do |product| %>
+  <% @custOrder = CustomerOrder.find_by(product_name: product.description) %>
+  <% @custOrder.update(status: "Paid") %>
+  <% @custOrder.status %>
+<% end %>
 
-<%# <% customer = Stripe::Customer.retrieve(@session.customer)%> %>
-<h1>Thanks for your order, <%= @customer.email %></h1>
-<h1>Thanks for your order, <%= @customer.name %></h1>
-
-<h1>Thanks for your order, <%= @payment_intent.charges %></h1>
-
-<%= debug @session %>
-<%= debug @payment_intent %>
+<%# <%= @payment_intent.shipping %>
+<%# <%= debug @session %>
+<%#<%= debug @payment_intent %>

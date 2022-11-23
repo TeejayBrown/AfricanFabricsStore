@@ -43,6 +43,11 @@ post '/webhook' do
     case event.type
     when 'payment_intent.succeeded'
         payment_intent = event.data.object
+        @line_items.data.each do |product|
+            @custOrder = CustomerOrder.find_by(product_name: product.description)
+            @custOrder.update(status: "Paid")
+        end
+
     # ... handle other event types
     else
         puts "Unhandled event type: #{event.type}"

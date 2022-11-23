@@ -6,6 +6,28 @@ class CheckoutController < ApplicationController
     productOrder = ProductOrder.find_by(product_id: product.id)
     load_taxes(product)
     shippingRate
+    province = Province.find("#{current_customer.address.province_id}")
+    @subtotal = product.price * 1
+    @gst = @subtotal * province.gst_rate
+    @pst = @subtotal * province.pst_rate
+    @hst = @subtotal * province.hst_rate
+    taxes = (@gst + @pst + @hst)/100
+    total = @subtotal + taxes
+    customerId = current_customer.address
+    quantity = 1
+    #loadPastOrder(product, productOrder, taxes, total, customerId)
+    #loadPastOrder(product, quantity, taxes, total, customerId)
+    #CustomerOrder.where(customer_id: customerId).first_or_create.update(product_name: product.name)
+    # CustomerOrder.create(status: "Pending",
+    #   product_name: product.name,
+    #   product_description: product.description,
+    #   product_price: product.price,
+    #   product_quantity: 1,
+    #   subtotal: product.price * 1,
+    #   taxes: taxes,
+    #   total: total,
+    #   customer_id: customerId,
+    #   order_date: Time.now.strftime("%d/%m/%Y %H:%M"))
 
     @session = Stripe::Checkout::Session.create({
       customer: current_customer.stripe_customer_id,
@@ -23,7 +45,7 @@ class CheckoutController < ApplicationController
             description: product.description,
           },
         },
-        quantity: productOrder.quantity,
+        quantity: 1,
         tax_rates: @all_taxes,
       ],
       mode: 'payment'
@@ -72,10 +94,37 @@ class CheckoutController < ApplicationController
   end
 
   def success
+    session[:order_id] = []
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
     @customer = Stripe::Customer.retrieve(@session.customer)
-    @shipping = Stripe::Customer.retrieve(@session.customer)
+    @line_items = Stripe::Checkout::Session.list_line_items(@session.id)
+  end
+
+  def loadPastOrder(product, productOrder, taxes, total, customerId)
+    custOrder = CustomerOrder.new
+    custOrder.status = "Pending",
+    custOrder.product_name = product.name,
+    custOrder.product_description = product.description,
+    custOrder.product_price = product.price,
+    custOrder.product_quantity = 1,
+    custOrder.subtotal = product.price * 1,
+    custOrder.taxes = taxes,
+    custOrder.total = total,
+    custOrder.customer_id = customerId,
+    custOrder.order_date = Time.now.strftime("%d/%m/%Y %H:%M")
+
+    custOrder.save
+    # CustomerOrder.create(status: "Pending",
+    #                       product_name: product.name,
+    #                       product_description: product.description,
+    #                       product_price: product.price,
+    #                       product_quantity: 1,
+    #                       subtotal: product.price * 1,
+    #                       taxes: taxes,
+    #                       total: total,
+    #                       customer_id: customerId,
+    #                       order_date: Time.now.strftime("%d/%m/%Y %H:%M"))
   end
 
   private
@@ -129,6 +178,21 @@ class CheckoutController < ApplicationController
       taxRates.push(customer_hst_tax.id)
     end
 
+    if province.qst_rate != 0.0
+      customer_qst_tax = Stripe::TaxRate.create(
+        {
+          display_name: "QST for #{product.name}",
+          inclusive: false,
+          percentage: province.qst_rate,
+          country: 'CA',
+          jurisdiction: province.name,
+          description: 'Quebec Sales Tax',
+        },
+      )
+
+      taxRates.push(customer_qst_tax.id)
+    end
+
       #@all_taxes = [stripe_customer_pst_tax_id, stripe_customer_gst_tax_id, stripe_customer_hst_tax_id]
       @all_taxes = taxRates
     end
@@ -155,4 +219,6 @@ class CheckoutController < ApplicationController
         }
       )
     end
+
+
 end

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   post 'checkout/create', to: 'checkout#create'
   post 'checkout/pay', to: 'checkout#pay'
 
+  get 'customer_order', to: 'customer_order#show', as: 'past-orders'
+
+
   get 'order', to: 'order#show', as: 'order'
   post 'order/add'
   post 'order/remove'
@@ -44,6 +47,7 @@ Rails.application.routes.draw do
   resources :pages, only: [:about, :contact]
   resources :product_categories, only: [:index, :show]
   resources :after_signup
+  resources :customer_orders, only: [:show]
   #resources :checkout, only: [:create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
