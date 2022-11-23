@@ -1,0 +1,43 @@
+<% if @customer_orders.count == 0 %>
+  <h3>You have no order history!</h3>
+<% else %>
+  <h3>Hey <%= current_customer.first_name %>, check your order history below: </h3>
+  <br />
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Product Status</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Description</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Unit Price</th>
+        <th scope="col">Quantity * Unit Price</th>
+        <th scope="col">Taxes</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% productCount = 0  %>
+      <% @customer_orders.each do |custOrder| %>
+        <div>
+          <tr>
+            <th scope="row"><%= productCount = productCount+1 %></th>
+            <td><%= custOrder.order_date %></td>
+            <td><%= custOrder.status %></td>
+            <td><%= custOrder.product_name %></td>
+            <td><%= custOrder.product_description %></td>
+            <td><%= custOrder.product_quantity%></td>
+            <td><%= number_to_currency custOrder.product_price %> </td>
+            <td><%= number_to_currency custOrder.subtotal %> </td>
+            <td><%= number_to_currency custOrder.taxes %> </td>
+            <td><%= number_to_currency custOrder.total %> </td>
+            <td></td>
+          </tr>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

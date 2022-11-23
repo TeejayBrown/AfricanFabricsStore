@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_103054) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_070347) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -77,6 +77,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_103054) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "customer_orders", force: :cascade do |t|
+    t.string "status"
+    t.string "product_name"
+    t.string "product_description"
+    t.decimal "product_price"
+    t.integer "product_quantity"
+    t.decimal "subtotal"
+    t.decimal "taxes"
+    t.decimal "total"
+    t.integer "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "order_date"
+    t.index ["customer_id"], name: "index_customer_orders_on_customer_id"
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -110,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_103054) do
     t.string "order_date"
     t.string "sub_total"
     t.string "total"
+    t.string "qst_rate"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -156,12 +173,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_103054) do
     t.integer "hst_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "qst_rate"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "customers"
   add_foreign_key "addresses", "provinces"
+  add_foreign_key "customer_orders", "customers"
   add_foreign_key "customers", "addresses"
   add_foreign_key "product_orders", "orders"
   add_foreign_key "product_orders", "products"

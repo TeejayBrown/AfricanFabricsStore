@@ -8,4 +8,5 @@
 
 #Product.destroy_all
 Order.destroy_all
+CustomerOrder.destroy_all
 AdminUser.create!(email: 'admin@taiwoomoleye.com', password: 'Shulamite101#', password_confirmation: 'Shulamite101#') if Rails.env.development?

@@ -15,14 +15,26 @@
       <% @gst = @subtotal * province.gst_rate %>
       <% @pst = @subtotal * province.pst_rate %>
       <% @hst = @subtotal * province.hst_rate %>
-      <% @taxes = (@gst + @pst + @hst)/100 %>
+      <% @qst = @subtotal * province.qst_rate %>
+      <% @taxes = (@gst + @pst + @hst + @qst.round(2))/100 %>
       <% @total = @subtotal + @taxes%>
+      <% CustomerOrder.find_or_create_by(status: "Pending",
+                            product_name: product.name,
+                            product_description: product.description,
+                            product_price: product.price,
+                            product_quantity: productOrder.quantity,
+                            subtotal: product.price * productOrder.quantity,
+                            taxes: @taxes,
+                            total: @total,
+                            customer_id: current_customer.id,
+                            order_date: Time.now.strftime("%d/%m/%Y %H:%M")) %>
       <% @order.update(pst_rate: province.pst_rate, gst_rate: province.gst_rate,
-                        order_date: Time.now.strftime("%d/%m/%Y %H:%M"),
+                        order_date: Time.now.strftime("%d/%m/%Y %H:%M"), qst_rate: province.qst_rate,
                         hst_rate: province.hst_rate, sub_total: @subtotal, total: @total) %>
       <strong>PST Rate: </strong><%= province.pst_rate %>
       <strong>GST Rate: </strong><%= province.gst_rate %>
       <strong>HST Rate: </strong><%= province.hst_rate %>
+      <strong>QST Rate: </strong><%= province.qst_rate %>
       <strong>Order Date: </strong><%= Time.now.strftime("%d/%m/%Y %H:%M") %>
       <strong>SubTotal: </strong><%= @subtotal %>
       <strong>Taxes: </strong><%= @taxes %>
@@ -38,7 +50,8 @@
     <% @gst = @subtotal * province.gst_rate %>
     <% @pst = @subtotal * province.pst_rate %>
     <% @hst = @subtotal * province.hst_rate %>
-    <% @taxes = (@gst + @pst + @hst)/100 %>
+    <% @qst = @subtotal * province.qst_rate %>
+    <% @taxes = (@gst + @pst + @hst + @qst.round(2))/100 %>
     <% @total = @subtotal + @taxes%>
   <% end %>
   <% if current_customer %>
@@ -53,6 +66,9 @@
         <li>Province: <%= province.name %></li>
         <% if province.hst_rate > 0 %>
           <li>HST: <%= province.hst_rate %>%</li>
+        <% elsif province.name == "Quebec" %>
+          <li>QST: <%= province.qst_rate %>%</li>
+          <li>GST: <%= province.gst_rate %>%</li>
         <% else %>
           <li>GST: <%= province.gst_rate %>%</li>
           <li>PST: <%= province.pst_rate %>%</li>
@@ -82,7 +98,7 @@
         <%# <% Order.create(:pst_rate => "7") %>
           <% province = Province.find("#{current_customer.address.province_id}") %>
           <% Order.create(:pst_rate => province.pst_rate, :gst_rate => province.gst_rate,
-                          :order_date =>Time.now.strftime("%d/%m/%Y %H:%M"),
+                          :order_date =>Time.now.strftime("%d/%m/%Y %H:%M"), qst_rate: province.qst_rate,
                           :hst_rate => province.hst_rate, :sub_total => @subtotal, :total => @total) %>
         <% end %>
         <div id="<%= "order-#{product.id}" %>">

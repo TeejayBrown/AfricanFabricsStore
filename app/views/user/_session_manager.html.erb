@@ -5,7 +5,9 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
       <li><%= link_to "Edit Account", edit_customer_registration_path, class: 'dropdown-item'%></li>
+      <li><%= link_to "My Orders", past_orders_path, class: 'dropdown-item' %></li>
       <li><hr class="dropdown-divider"></li>
+      </li>
       <li><%= button_to "Sign Out", destroy_customer_session_path, method: :delete, class: 'dropdown-item'%></li>
     </ul>
   </li>
