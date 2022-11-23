@@ -47,10 +47,10 @@
       <% end %>
     </div>
   </div>
-  <div class ="col">
+  <div class ="col-md-6">
       <div class="card-body">
         <h2 class="card-title"><%= link_to product.name, product%></h2>
-        <p class="card-text"><strong>Description: </strong> <%= @product.description %></p>
+        <p class="card-text" style= "flex-wrap: wrap; width: 300px"><strong>Description: </strong> <%= @product.description %></p>
         <p class="card-text"><strong>Price:</strong> <%= number_to_currency product.price %>
           <% if product.new %>
           <strong>New!</strong>
@@ -67,7 +67,7 @@
               <%= f.submit "Add to cart", class: "btn btn-primary"%>
             <% end %>
           </div>
-          <div class='col', style="margin-top:-3px">
+          <div class='col-md-4', style="margin-top:-3px">
               <br/>
               <br/>
             <%= button_to "Buy Now", checkout_pay_path, params: {id: product.id}, data: { turbo: false }, class: "btn btn-primary"%>

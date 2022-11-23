@@ -4,45 +4,6 @@
 <% if @order.product_orders.count == 0 %>
   <h3>Your cart is empty!</h3>
 <% else %>
-  <% @order.product_orders.each do |productOrder| %>
-
-    <% product = productOrder.product %>
-
-    <p><%= product.name %> * <%= productOrder.quantity %> = $<%= product.price * productOrder.quantity %></p>
-    <% if current_customer %>
-      <% province = Province.find("#{current_customer.address.province_id}") %>
-      <% @subtotal = product.price * productOrder.quantity %>
-      <% @gst = @subtotal * province.gst_rate %>
-      <% @pst = @subtotal * province.pst_rate %>
-      <% @hst = @subtotal * province.hst_rate %>
-      <% @qst = @subtotal * province.qst_rate %>
-      <% @taxes = (@gst + @pst + @hst + @qst.round(2))/100 %>
-      <% @total = @subtotal + @taxes%>
-      <% CustomerOrder.find_or_create_by(status: "Pending",
-                            product_name: product.name,
-                            product_description: product.description,
-                            product_price: product.price,
-                            product_quantity: productOrder.quantity,
-                            subtotal: product.price * productOrder.quantity,
-                            taxes: @taxes,
-                            total: @total,
-                            customer_id: current_customer.id,
-                            order_date: Time.now.strftime("%d/%m/%Y %H:%M")) %>
-      <% @order.update(pst_rate: province.pst_rate, gst_rate: province.gst_rate,
-                        order_date: Time.now.strftime("%d/%m/%Y %H:%M"), qst_rate: province.qst_rate,
-                        hst_rate: province.hst_rate, sub_total: @subtotal, total: @total) %>
-      <strong>PST Rate: </strong><%= province.pst_rate %>
-      <strong>GST Rate: </strong><%= province.gst_rate %>
-      <strong>HST Rate: </strong><%= province.hst_rate %>
-      <strong>QST Rate: </strong><%= province.qst_rate %>
-      <strong>Order Date: </strong><%= Time.now.strftime("%d/%m/%Y %H:%M") %>
-      <strong>SubTotal: </strong><%= @subtotal %>
-      <strong>Taxes: </strong><%= @taxes %>
-      <strong>Total: </strong><%= @total %>
-    <% end %>
-    <p>Order Date: <%= @order.order_date = Time.now %></p>
-    <p>Order ID: <%= @order.id %></p>
-  <% end %>
   <%# <p>Your total is $<%= @order.subtotal %> <%#</p> %>
   <% if current_customer %>
     <% province = Province.find("#{current_customer.address.province_id}") %>
@@ -58,25 +19,24 @@
     <% province = Province.find("#{current_customer.address.province_id}") %>
     <div class="container card mt-4">
       <h2>Customer Info</h2>
-      <h3>Name: <%= current_customer.full_name %></h3>
+      <h3><strong>Name:</strong> <%= current_customer.full_name %></h3>
       <ul>
-        <li>Street: <%= current_customer.address.street.titleize %></li>
-        <li>City: <%= current_customer.address.city.titleize %></li>
-        <li>Postal Code: <%= current_customer.address.postal_code.titleize %></li>
-        <li>Province: <%= province.name %></li>
+        <li><strong>Street:</strong> <%= current_customer.address.street.titleize %></li>
+        <li><strong>City:</strong> <%= current_customer.address.city.titleize %></li>
+        <li><strong>Postal Code:</strong> <%= current_customer.address.postal_code.titleize %></li>
+        <li><strong>Province:</strong> <%= province.name %></li>
         <% if province.hst_rate > 0 %>
-          <li>HST: <%= province.hst_rate %>%</li>
+          <li><strong>HST:</strong> <%= province.hst_rate %>%</li>
         <% elsif province.name == "Quebec" %>
-          <li>QST: <%= province.qst_rate %>%</li>
-          <li>GST: <%= province.gst_rate %>%</li>
+          <li><strong>QST:</strong> <%= province.qst_rate %>%</li>
+          <li><strong>GST:</strong> <%= province.gst_rate %>%</li>
         <% else %>
-          <li>GST: <%= province.gst_rate %>%</li>
-          <li>PST: <%= province.pst_rate %>%</li>
+          <li><strong>GST:</strong> <%= province.gst_rate %>%</li>
+          <li><strong>PST:</strong> <%= province.pst_rate %>%</li>
         <% end %>
       </ul>
     </div>
   <% end %>
-  <p>Your total is $<%= @total %> </p>
 
   <table class="table table-striped">
     <thead>
