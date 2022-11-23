@@ -3,7 +3,7 @@
 <% else %>
   <h3>Hey <%= current_customer.first_name %>, check your order history below: </h3>
   <br />
-  <table class="table table-striped">
+  <table class="table table-striped table-hover align-middle">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -16,7 +16,6 @@
         <th scope="col">Quantity * Unit Price</th>
         <th scope="col">Taxes</th>
         <th scope="col">Total</th>
-        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -34,7 +33,6 @@
             <td><%= number_to_currency custOrder.subtotal %> </td>
             <td><%= number_to_currency custOrder.taxes %> </td>
             <td><%= number_to_currency custOrder.total %> </td>
-            <td></td>
           </tr>
         </div>
       <% end %>

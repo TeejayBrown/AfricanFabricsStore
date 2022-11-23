@@ -1,7 +1,7 @@
 <h1>Success</h1>
 <br />
-<%# <p>We have received your payment of <%= number_to_currency @payment_intent.amount_received / 100.0 .</p> %>
-<h3>The status of your payment is <%= @payment_intent.status %>.</h3>
+<h3>We have received your payment of <%= number_to_currency @payment_intent.amount_received / 100.0 %> .</h3>
+<%# <h3>The status of your payment is <%= @payment_intent.status.</h3> %>
 <br/>
 <h4>Thanks for your order, <%= @payment_intent.shipping.name %>.
   Your order will be shipped to <%= @payment_intent.shipping.address.line1 %>,
