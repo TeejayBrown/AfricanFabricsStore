@@ -22,7 +22,7 @@ class OrderController < ApplicationController
     id = params[:id].to_i
     session[:order_id] << id #unless session[:order_id].include?(id)
     quantity = params[:quantity].to_i
-    flash[:notice] = "#{quantity} Item(s) added to cart"
+    flash.now[:notice] = "#{quantity} Item(s) added to cart"
     current_product_order = @order.product_orders.find_by(product_id: @product.id)
     if current_product_order && quantity > 0
       current_product_order.update(quantity:)

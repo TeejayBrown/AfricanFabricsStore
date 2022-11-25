@@ -6,15 +6,16 @@ class CheckoutController < ApplicationController
     productOrder = ProductOrder.find_by(product_id: product.id)
     load_taxes(product)
     shippingRate
-    province = Province.find("#{current_customer.address.province_id}")
-    @subtotal = product.price * 1
-    @gst = @subtotal * province.gst_rate
-    @pst = @subtotal * province.pst_rate
-    @hst = @subtotal * province.hst_rate
-    taxes = (@gst + @pst + @hst)/100
-    total = @subtotal + taxes
-    customerId = current_customer.address
-    quantity = 1
+    # province = Province.find("#{current_customer.address.province_id}")
+    # @subtotal = product.price * 1
+    # @gst = @subtotal * province.gst_rate
+    # @pst = @subtotal * province.pst_rate
+    # @hst = @subtotal * province.hst_rate
+    # taxes = (@gst + @pst + @hst)/100
+    # total = @subtotal + taxes
+    # customerId = current_customer.id
+    # quantity = 1
+    # loadPastOrder(product, productOrder, taxes, total, customerId)
     #loadPastOrder(product, productOrder, taxes, total, customerId)
     #loadPastOrder(product, quantity, taxes, total, customerId)
     #CustomerOrder.where(customer_id: customerId).first_or_create.update(product_name: product.name)
@@ -39,7 +40,7 @@ class CheckoutController < ApplicationController
       line_items: [
         price_data: {
           currency: 'cad',
-          unit_amount: product.price.to_i * 100,
+          unit_amount: (product.price * 100).to_i,
           product_data: {
             name: product.name,
             description: product.description,
@@ -64,7 +65,7 @@ class CheckoutController < ApplicationController
       lineItems.push({
         price_data: {
           currency: 'cad',
-          unit_amount: product.price.to_i * 100,
+          unit_amount: (product.price * 100).to_i,
           product_data: {
             name: product.name,
             description: product.description
@@ -99,6 +100,7 @@ class CheckoutController < ApplicationController
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
     @customer = Stripe::Customer.retrieve(@session.customer)
     @line_items = Stripe::Checkout::Session.list_line_items(@session.id)
+    flash.now[:notice] = "You have succesfully placed an order. Thank you for your order #{@payment_intent.shipping.name}."
   end
 
   def loadPastOrder(product, productOrder, taxes, total, customerId)
