@@ -55,11 +55,39 @@
       <% @order.product_orders.each do |productOrder| %>
         <% product = productOrder.product %>
         <% if current_customer %>
+          <% province = Province.find("#{current_customer.address.province_id}") %>
+          <% subtotal = product.price * productOrder.quantity %>
+          <% @gst = subtotal * province.gst_rate %>
+          <% @pst = subtotal * province.pst_rate %>
+          <% @hst = subtotal * province.hst_rate %>
+          <% @qst = subtotal * province.qst_rate %>
+          <% taxes = (@gst + @pst + @hst + @qst.round(2))/100 %>
+          <% total = subtotal + taxes%>
         <%# <% Order.create(:pst_rate => "7") %>
           <% province = Province.find("#{current_customer.address.province_id}") %>
           <% Order.create(:pst_rate => province.pst_rate, :gst_rate => province.gst_rate,
                           :order_date =>Time.now.strftime("%d/%m/%Y %H:%M"), qst_rate: province.qst_rate,
                           :hst_rate => province.hst_rate, :sub_total => @subtotal, :total => @total) %>
+
+          <% CustomerOrder.exists?(product_name: product.name) ?
+              CustomerOrder.where(product_name: product.name).update(product_description: product.description,
+                              product_price: product.price,
+                              product_quantity: productOrder.quantity,
+                              subtotal: product.price * productOrder.quantity,
+                              taxes: taxes,
+                              total: total,
+                              customer_id: current_customer.id,
+                              order_date: Time.now.strftime("%d/%m/%Y %H:%M")) :
+              CustomerOrder.create(status: "Pending",
+                              product_name: product.name,
+                              product_description: product.description,
+                              product_price: product.price,
+                              product_quantity: productOrder.quantity,
+                              subtotal: product.price * productOrder.quantity,
+                              taxes: taxes,
+                              total: total,
+                              customer_id: current_customer.id,
+                              order_date: Time.now.strftime("%d/%m/%Y %H:%M")) %>
         <% end %>
         <div id="<%= "order-#{product.id}" %>">
           <tr>

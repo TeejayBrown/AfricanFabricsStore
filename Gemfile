@@ -84,3 +84,5 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'stripe'
 gem "wicked", "~> 2.0"
+gem 'aws-sdk', '~> 3.1'
+gem "aws-sdk-s3", "~> 1.117"

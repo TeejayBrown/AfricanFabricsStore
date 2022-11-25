@@ -1,7 +1,11 @@
 <%= turbo_frame_tag "show_notice" do %>
   <% if notice %>
-    <p class="notice"><%= notice %></p>
+    <div class="alert alert-info">
+      <p class="notice"><%= notice %></p>
+    </div>
   <% elsif alert %>
-    <p class="alert"><%= alert %></p>
+    <div class="alert alert-info">
+      <p class="alert"><%= alert %></p>
+    </div>
   <% end %>
 <% end %>
