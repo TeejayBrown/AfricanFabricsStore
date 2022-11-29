@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_232858) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_201017) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -120,13 +120,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_232858) do
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "pst_rate"
-    t.string "gst_rate"
-    t.string "hst_rate"
-    t.string "order_date"
-    t.string "sub_total"
-    t.string "total"
-    t.string "qst_rate"
+    t.integer "pst_rate"
+    t.integer "gst_rate"
+    t.integer "hst_rate"
+    t.datetime "order_date", precision: nil
+    t.decimal "sub_total"
+    t.decimal "total"
+    t.integer "qst_rate"
   end
 
   create_table "pages", force: :cascade do |t|

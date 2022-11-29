@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  #belongs_to :customer
+  # belongs_to :customer
 
   has_many :product_orders, dependent: :destroy
   has_many :products, through: :product_orders
@@ -11,5 +11,4 @@ class Order < ApplicationRecord
   def subtotal
     product_orders.to_a.sum { |product_order| product_order.subtotal }
   end
-
 end

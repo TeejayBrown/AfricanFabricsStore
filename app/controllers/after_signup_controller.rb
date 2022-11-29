@@ -8,9 +8,9 @@ class AfterSignupController < ApplicationController
     @customer = current_customer
 
     case step
-    when 'sign_up'
+    when "sign_up"
       skip_step if @customer.persisted?
-    when 'set_address'
+    when "set_address"
       @address = get_address
     end
 
@@ -20,13 +20,13 @@ class AfterSignupController < ApplicationController
   def update
     @customer = current_customer
     case step
-    when 'set_name'
+    when "set_name"
       if @customer.update(onboarding_params(step))
         render_wizard @customer
-      # else
-      #   render_wizard @customer status: :unprocessable_entity
+        # else
+        #   render_wizard @customer status: :unprocessable_entity
       end
-    when 'set_address'
+    when "set_address"
       if @customer.create_address(onboarding_params(step).except(:form_step))
         render_wizard @customer
       else
@@ -34,6 +34,7 @@ class AfterSignupController < ApplicationController
         render_wizard @customer, status: :unprocessable_entity
       end
     end
+
   end
 
   private
@@ -50,12 +51,12 @@ class AfterSignupController < ApplicationController
     root_path
   end
 
-  def onboarding_params(step = 'sign_up')
+  def onboarding_params(step = "sign_up")
     permitted_attributes = case step
-                           when 'set_name'
+                           when "set_name"
                              required_parameters = :customer
                              %i[first_name last_name]
-                           when 'set_address'
+                           when "set_address"
                              required_parameters = :address
                              %i[street city postal_code province_id]
                            end

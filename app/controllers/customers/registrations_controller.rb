@@ -56,13 +56,14 @@ class Customers::RegistrationsController < Devise::RegistrationsController
                                                               :password,
                                                               :password_confirmation,
                                                               :current_password,
-                                                              { address: %i[street city postal_code province_id] }])
+                                                              { address: %i[street city postal_code
+                                                                            province_id] }])
   end
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     super(resource)
-    after_signup_path('set_name')
+    after_signup_path("set_name")
   end
 
   # The path used after sign up for inactive accounts.

@@ -5,5 +5,4 @@ class ProductOrder < ApplicationRecord
   def subtotal
     product.price * quantity
   end
-
 end

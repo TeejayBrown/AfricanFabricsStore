@@ -8,12 +8,15 @@
   <%= @payment_intent.shipping.address.city %>, <%= @payment_intent.shipping.address.state %>,
    <%= @payment_intent.shipping.address.postal_code %>, <%= @payment_intent.shipping.address.country %> within the
    next 5 business days.
+
 </h4>
 
 <% @line_items.data.each do |product| %>
   <% @custOrder = CustomerOrder.find_by(product_name: product.description) %>
   <% @custOrder.update(status: "Paid") %>
   <% @custOrder.status %>
+  <% @prodQty = Product.find_by(name: product.description) %>
+  <% @prodQty.update(quantity: @prodQty.quantity - product.quantity) %>
 <% end %>
 
 <%# <%= @payment_intent.shipping %>

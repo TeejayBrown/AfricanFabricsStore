@@ -6,13 +6,13 @@ class Customer < ApplicationRecord
 
   has_one :address, dependent: :destroy, inverse_of: :customer, autosave: true
 
-  has_many :customer_orders   #newly added
+  has_many :customer_orders # newly added
 
-#pay_customer stripe_attributes: :stripe_attributes
+  # pay_customer stripe_attributes: :stripe_attributes
 
   validates :email,
-    presence: true,
-    uniqueness: { case_sensitive: false }
+            presence:   true,
+            uniqueness: { case_sensitive: false }
 
   after_create do
     customer = Stripe::Customer.create(email: email, name: first_name)
@@ -28,15 +28,15 @@ class Customer < ApplicationRecord
   attr_accessor :form_step
 
   def form_step
-    @form_step ||= 'sign_up'
+    @form_step ||= "sign_up"
   end
 
-  with_options if: -> { required_for_step?('set_name') } do |step|
-    step.validates :first_name, presence: true
-    step.validates :last_name, presence: true
+  with_options if: -> { required_for_step?("set_name") } do
+    validates :first_name, presence: true
+    validates :last_name, presence: true
   end
 
-  validates_associated :address, if: -> { required_for_step?('set_address') }
+  validates_associated :address, if: -> { required_for_step?("set_address") }
 
   def full_name
     "#{first_name.capitalize unless first_name.nil?} #{last_name.capitalize unless last_name.nil?}"
