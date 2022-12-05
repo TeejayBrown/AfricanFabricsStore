@@ -11,5 +11,4 @@ class Product < ApplicationRecord
   def image_as_thumbnail
     image.variant(resize_to_limit: [100, 100]).processed
   end
-
 end

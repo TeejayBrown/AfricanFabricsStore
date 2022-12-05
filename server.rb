@@ -11,47 +11,47 @@
 # 3) Run the server on http://localhost:4242
 #   ruby server.rb
 
-require 'json'
-require 'sinatra'
-require 'stripe'
+require "json"
+require "sinatra"
+require "stripe"
 
 # This is your Stripe CLI webhook secret for testing your endpoint locally.
 endpoint_secret = Rails.application.credentials[:stripe][:endopoint_secret]
 
 set :port, 4242
 
-post '/webhook' do
-    payload = request.body.read
-    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    event = nil
+post "/webhook" do
+  payload = request.body.read
+  sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
+  event = nil
 
-    begin
-        event = Stripe::Webhook.construct_event(
-            payload, sig_header, endpoint_secret
-        )
-    rescue JSON::ParserError => e
-        # Invalid payload
-        status 400
-        return
-    rescue Stripe::SignatureVerificationError => e
-        # Invalid signature
-        status 400
-        return
-    end
+  begin
+    event = Stripe::Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
+  rescue JSON::ParserError => e
+    # Invalid payload
+    status 400
+    return
+  rescue Stripe::SignatureVerificationError => e
+    # Invalid signature
+    status 400
+    return
+  end
 
-    # Handle the event
-    case event.type
-    when 'payment_intent.succeeded'
-        payment_intent = event.data.object
-        @line_items.data.each do |product|
-            @custOrder = CustomerOrder.find_by(product_name: product.description)
-            @custOrder.update(status: "Paid")
-        end
+  # Handle the event
+  case event.type
+  when "payment_intent.succeeded"
+    payment_intent = event.data.object
+    # @line_items.data.each do |product|
+    #   @custOrder = CustomerOrder.find_by(product_name: product.description)
+    #   @custOrder.update(status: "Paid")
+    # end
 
-    # ... handle other event types
-    else
-        puts "Unhandled event type: #{event.type}"
-    end
+  # ... handle other event types
+  else
+    puts "Unhandled event type: #{event.type}"
+  end
 
-    status 200
+  status 200
 end

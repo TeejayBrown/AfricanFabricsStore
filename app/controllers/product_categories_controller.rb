@@ -22,5 +22,4 @@ class ProductCategoriesController < ApplicationController
   def lace
     @product_category = ProductCategory.find_by(name: "Lace")
   end
-
 end
