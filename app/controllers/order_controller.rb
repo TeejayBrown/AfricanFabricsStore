@@ -19,7 +19,7 @@ class OrderController < ApplicationController
     id = params[:id].to_i
     #session[:order_id] << id
     @product = Product.find_by(id: params[:id])
-    id = params[:id].to_i
+    #id = params[:id].to_i
     session[:order_id] << id #unless session[:order_id].include?(id)
     quantity = params[:quantity].to_i
     flash.now[:notice] = "#{quantity} Item(s) added to cart"
