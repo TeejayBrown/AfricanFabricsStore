@@ -1680,6 +1680,7 @@ DEPENDENCIES
   jbuilder (~> 2.11, >= 2.11.5)
   jquery-rails
   kaminari
+  nokogiri (>= 1.13.10)
   puma (~> 5.0)
   rails (~> 7.0.4)
   rubocop

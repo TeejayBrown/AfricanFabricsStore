@@ -88,3 +88,4 @@ gem 'aws-sdk', '~> 3.1'
 gem "aws-sdk-s3", "~> 1.117"
 gem 'rubocop'
 gem 'rubocop-rails'
+gem "nokogiri", ">= 1.13.10"
